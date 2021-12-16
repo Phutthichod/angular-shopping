@@ -1,0 +1,10 @@
+<div class="d-flex flex-column mt-2 p-5">
+    <h3 class="mb-5">Select Items</h3>
+    <div class="d-flex flex-row">
+        <div *ngFor="let player of players" class="d-flex flex-column border p-2 rounded me-2" >
+            <h4>{{ player.name }}</h4>
+            <p>{{ player.value | currency : 'THB':'symbol-narrow'}}</p>
+            <button type="button" (click)="addPlayer(player)" class="btn btn-primary">Select</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="p-5">
+    <form [formGroup]="playerForm">
+        <div class="mb-3">
+          <label for="nameInputPlayer" class="form-label">Name</label>
+          <input type="text" class="form-control" formControlName="name" id="nameInputPlayer">
+        </div>
+        <div class="mb-3">
+          <label for="inputValuePlayer" class="form-label">Value</label>
+          <input type="number" class="form-control" formControlName="value" id="inputValuePlayer">
+        </div>
+        <button (click)="onSubmit()" type="submit" class="btn btn-primary">Add</button>
+    </form>
+</div>

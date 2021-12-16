@@ -1,0 +1,6 @@
+<div class="d-flex flex-row w-100 justify-content-center">
+    <button type="button" (click)="onRemove()" class="btn me-2 btn-danger">remove</button>
+    <p class="me-2">{{player.name}}</p>
+    <p class="me-2">จำนวน {{count}}</p>
+    <p class="me-2">ราคา {{player.value | currency : 'THB':'symbol-narrow'}}</p>
+</div>
