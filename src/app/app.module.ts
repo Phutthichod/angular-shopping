@@ -16,6 +16,8 @@ import { StoreModule } from '@ngrx/store';
 import { CartReducer } from './store/carts/reducer';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +33,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     HttpClientInMemoryWebApiModule.forRoot(DataService),
     StoreModule.forRoot({ cart: CartReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+    }),
     RouterModule.forRoot([
       {path: '', component: ShoppingComponent},
       {path: 'add', component: FormPlayerComponent},

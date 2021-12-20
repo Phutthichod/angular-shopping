@@ -22,6 +22,7 @@ export class FormPlayerComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log("submit")
     console.log(this.playerForm.value);
     this.playerService.createPlayer({
       id: null,
