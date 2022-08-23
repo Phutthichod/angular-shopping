@@ -28,9 +28,6 @@ fdescribe('CartComponent', () => {
 
     fixture = TestBed.createComponent(CartComponent);
     fixture.detectChanges();
-
-    
-
   }
 
   fdescribe('with initial state', () => {
@@ -38,13 +35,15 @@ fdescribe('CartComponent', () => {
     beforeEach(async () => {
       await setup({ cart: initailState });
     });
-    it('render initial',()=>{
+    it('not found app item player cart',()=>{
         expect(()=>{
           findComponent(fixture, 'app-item-player-cart')
         }).toThrow();
-
-        expectText(fixture, 'total',`total : ฿0.00`);
     })
+    it('show zero total',()=>{
+      expectText(fixture, 'total',`total : ฿0.00`);
+    })
+
   })
 
   fdescribe('with cart', () => {
@@ -78,7 +77,6 @@ fdescribe('CartComponent', () => {
         expect(listPlayer[index].properties.count).toBe(item.count);
         expect(listPlayer[index].properties.player).toEqual(item.player);
       })
-     
     });
 
     it('show total', async ()=>{
