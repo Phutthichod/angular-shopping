@@ -1,11 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light px-2">
     <div class="d-flex flex-row w-100">
-        <a class="navbar-brand flex-grow-1" routerLink="/">Player Market</a>
-        <button  routerLink="/add" type="button" class="btn me-2">
-            Add Player
-        </button>
-        <button  routerLink="/cart" type="button" class="btn btn-primary">
-            Cart <span class="badge badge-light">{{cartLenght}}</span>
-        </button>
+        <a data-testid="linkToHome" class="navbar-brand flex-grow-1" routerLink="/">Player Market</a>
+        <a data-testid="linkToAddPlayer" routerLink="/add">
+            <button  type="button" class="btn me-2">
+                Add Player
+            </button>
+        </a>
+        <a data-testid="linkToAddCart" routerLink="/cart" >
+            <button type="button" class="btn btn-primary">
+                Cart <span data-testid="cartLength" class="badge badge-light">{{cartLenght}}</span>
+            </button>
+        </a>
     </div>
 </nav>
