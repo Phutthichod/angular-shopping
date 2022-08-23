@@ -6,8 +6,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { findComponent, expectText, findEl,findComponents } from '../spec-helpers/element.spec-helper';
-import { Player } from "src/app/data";
-import { By } from '@angular/platform-browser';
+import { removePlayer } from '../store/carts/action';
 
 
 fdescribe('CartComponent', () => {
@@ -30,14 +29,27 @@ fdescribe('CartComponent', () => {
     fixture = TestBed.createComponent(CartComponent);
     fixture.detectChanges();
 
-    itemPlayer = findComponent(fixture, 'app-item-player-cart');
-    listPlayer = findComponents(fixture, 'app-item-player-cart');
+    
 
   }
 
-  fdescribe('initial state', () => {
+  fdescribe('with initial state', () => {
+    const initailState:Item[]=  []
+    beforeEach(async () => {
+      await setup({ cart: initailState });
+    });
+    it('render initial',()=>{
+        expect(()=>{
+          findComponent(fixture, 'app-item-player-cart')
+        }).toThrow();
+
+        expectText(fixture, 'total',`total : ฿0.00`);
+    })
+  })
+
+  fdescribe('with cart', () => {
     const count = 2
-    const initailState = [
+    const cart = [
       {
         player:{
             id:1,
@@ -54,13 +66,15 @@ fdescribe('CartComponent', () => {
    }
     ]
     beforeEach(async () => {
-      await setup({cart:initailState});
+      await setup({cart:cart});
+      itemPlayer = findComponent(fixture, 'app-item-player-cart');
+      listPlayer = findComponents(fixture, 'app-item-player-cart');
     });
 
     it('renders list cart', () => {
-      expect(initailState.length).toBe(listPlayer.length);
+      expect(cart.length).toBe(listPlayer.length);
 
-      initailState.forEach((item,index)=>{
+      cart.forEach((item,index)=>{
         expect(listPlayer[index].properties.count).toBe(item.count);
         expect(listPlayer[index].properties.player).toEqual(item.player);
       })
@@ -69,6 +83,11 @@ fdescribe('CartComponent', () => {
 
     it('show total', async ()=>{
       expectText(fixture, 'total',`total : ฿600.00`);
+    })
+
+    it('remove player', ()=>{
+      listPlayer[0].triggerEventHandler('removePlayer',cart[0].player.id);
+      expect(store$.dispatch).toHaveBeenCalledWith(removePlayer({ playerId:cart[0].player.id }));
     })
 
   });
