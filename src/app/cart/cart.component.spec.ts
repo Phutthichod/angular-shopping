@@ -5,8 +5,9 @@ import { Item } from '../store/carts/state';
 import { provideMockStore } from '@ngrx/store/testing';
 import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { findComponent, expectText, findEl } from '../spec-helpers/element.spec-helper';
+import { findComponent, expectText, findEl,findComponents } from '../spec-helpers/element.spec-helper';
 import { Player } from "src/app/data";
+import { By } from '@angular/platform-browser';
 
 
 fdescribe('CartComponent', () => {
@@ -14,6 +15,7 @@ fdescribe('CartComponent', () => {
   let fixture: ComponentFixture<CartComponent>;
   let store$: Store<Item[]>;
   let itemPlayer: DebugElement;
+  let listPlayer: DebugElement[];
 
   async function setup(state: { cart: Item[] }): Promise<void> {
     await TestBed.configureTestingModule({
@@ -29,6 +31,8 @@ fdescribe('CartComponent', () => {
     fixture.detectChanges();
 
     itemPlayer = findComponent(fixture, 'app-item-player-cart');
+    listPlayer = findComponents(fixture, 'app-item-player-cart');
+
   }
 
   fdescribe('initial state', () => {
@@ -54,9 +58,13 @@ fdescribe('CartComponent', () => {
     });
 
     it('renders list cart', () => {
-      expect(itemPlayer).toBeTruthy();
-      expect(itemPlayer.properties.count).toBe(initailState[0].count);
-      expect(itemPlayer.properties.player).toEqual(initailState[0].player);
+      expect(initailState.length).toBe(listPlayer.length);
+
+      initailState.forEach((item,index)=>{
+        expect(listPlayer[index].properties.count).toBe(item.count);
+        expect(listPlayer[index].properties.player).toEqual(item.player);
+      })
+     
     });
 
     it('show total', async ()=>{

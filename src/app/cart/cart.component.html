@@ -1,7 +1,7 @@
 <div class="d-flex flex-column w-100 align-items-center mt-5">
     <h2>Cart</h2>
     <div  *ngFor="let item of cart$ | async;"  class="mb-2">
-        <app-item-player-cart (removePlayer)="onRemovePlayer($event)" [count]="item.count" [player]="item.player"></app-item-player-cart>
+        <app-item-player-cart data-testid="item.player" (removePlayer)="onRemovePlayer($event)" [count]="item.count" [player]="item.player"></app-item-player-cart>
     </div>
     <p data-testid="total">total : {{ totalValue | currency:"THB":"symbol-narrow" }}</p>
     <button class="btn btn-primary" >checkout</button>
