@@ -3,6 +3,6 @@
     <div  *ngFor="let item of cart$ | async;"  class="mb-2">
         <app-item-player-cart (removePlayer)="onRemovePlayer($event)" [count]="item.count" [player]="item.player"></app-item-player-cart>
     </div>
-    <p>total : {{ totalValue | currency:"THB":"symbol-narrow" }}</p>
+    <p data-testid="total">total : {{ totalValue | currency:"THB":"symbol-narrow" }}</p>
     <button class="btn btn-primary" >checkout</button>
 </div>
