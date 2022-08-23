@@ -1,12 +1,12 @@
 <div class="p-5">
-    <form [formGroup]="playerForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="playerForm" (ngSubmit)="onSubmit()" data-testid="form">
         <div class="mb-3">
           <label for="nameInputPlayer" class="form-label">Name</label>
-          <input type="text" class="form-control" formControlName="name" id="nameInputPlayer">
+          <input data-testid="nameInputPlayer" type="text" class="form-control" formControlName="name" id="nameInputPlayer">
         </div>
         <div class="mb-3">
           <label for="inputValuePlayer" class="form-label">Value</label>
-          <input type="number" class="form-control" formControlName="value" id="inputValuePlayer">
+          <input data-testid="inputValuePlayer" type="number" class="form-control" formControlName="value" id="inputValuePlayer">
         </div>
         <button type="submit" class="btn btn-primary">Add</button>
     </form>
