@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { expectText, findEl, findEls } from '../spec-helpers/element.spec-helper';
+import { click, expectText, findEl, findEls } from '../spec-helpers/element.spec-helper';
 import { CurrencyPipe } from '@angular/common';
 
 import { ShoppingComponent } from './shopping.component';
@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { Item } from '../store/carts/state';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
+import { addPlayer } from '../store/carts/action';
 
 fdescribe('ShoppingComponent', () => {
   let component: ShoppingComponent;
@@ -32,9 +33,7 @@ fdescribe('ShoppingComponent', () => {
     fakePlayerService = jasmine.createSpyObj<PlayerService>(
       'PlayerService',
       {
-        getPlayers: of([
-          player
-        ]),
+        getPlayers: of([]),
         createPlayer: undefined,
         ...playerServiceReturnValues,
       }
@@ -72,7 +71,6 @@ fdescribe('ShoppingComponent', () => {
   })
 
   fit('renders list player', async ()=>{
-    // pending()
     const players = [
       {
         id:1,
@@ -97,11 +95,17 @@ fdescribe('ShoppingComponent', () => {
     players.forEach((player,index)=>{
       expect(player.name).toContain(nameEls[index].nativeElement.innerHTML)
       expect(currencyPipe.transform(player.value.toString(),"THB","symbol-narrow")).toContain(valueEls[index].nativeElement.innerHTML)
-
-      // expectText(fixture,"value", ""+currencyPipe.transform(player.value.toString(),"THB","symbol-narrow"))
     })
-    // expectText(fixture,"name",player.name)
-    // expectText(fixture,"value", ""+currencyPipe.transform(player.value.toString(),"THB","symbol-narrow"))
+  })
+
+  fit('add player',async ()=>{
+    await setup({cart:[]},{
+      getPlayers: of([player])
+    })
+
+    const btnAddPlayerElm = findEl(fixture,"addPlayer")
+    btnAddPlayerElm.triggerEventHandler('click',player);
+    expect(store$.dispatch).toHaveBeenCalledWith(addPlayer({player}))
   })
 
 });
