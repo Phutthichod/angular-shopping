@@ -16,7 +16,6 @@ export class ItemPlayerCartComponent implements OnInit {
   }
 
   onRemove(){
-    console.log("remove")
     this.removePlayer.emit(this.player.id as number);
   }
 
